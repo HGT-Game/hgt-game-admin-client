@@ -52,8 +52,8 @@ export function logout() {
  */
 export function getInfo() {
   return request({
-    url: '/cultures/user/getInfo',
-    method: 'post'
+    url: '/user/get',
+    method: 'get'
   })
 }
 
