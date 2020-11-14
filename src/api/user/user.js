@@ -3,13 +3,13 @@ import qs from 'qs'
 
 /**
  * 注册
- * @param {account, code} data 账号/验证码
+ * @param {account, password, code} data 账号/验证码
  */
 export function register(data) {
   return request({
-    url: '/cultures/user/register',
+    url: '/auth/register',
     method: 'post',
-    data
+    data: qs.stringify(data)
   })
 }
 
@@ -31,9 +31,9 @@ export function loginByPassword(data) {
  */
 export function loginByCode(data) {
   return request({
-    url: '/cultures/user/loginByCode',
+    url: '/auth/loginByCode',
     method: 'post',
-    data
+    data: qs.stringify(data)
   })
 }
 

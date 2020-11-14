@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">登陆</h3>
+        <h3 class="title">海龟 - 登陆入口</h3>
       </div>
 
       <el-form-item prop="account">
@@ -166,7 +166,7 @@ export default {
       })
     },
     getCode() {
-      sendCode({ account: this.loginForm.account, scene: 'login' }).then(response => {
+      sendCode({ account: this.loginForm.account, sceneCode: 'login_by_code' }).then(response => {
         this.$message({ message: '验证码发送成功', type: 'success' })
         this.sendCoded = true
       })

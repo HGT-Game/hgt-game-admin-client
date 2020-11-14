@@ -3,7 +3,7 @@
     <el-form ref="registerForm" :model="registerForm" :rules="registerRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">注册 - 成为莫斯文化馆一份子</h3>
+        <h3 class="title">注册 - 成为海龟一族</h3>
       </div>
 
       <el-form-item prop="account">
@@ -19,6 +19,25 @@
           tabindex="1"
           auto-complete="on"
         />
+      </el-form-item>
+
+      <el-form-item prop="password">
+        <span class="svg-container">
+          <svg-icon icon-class="password" />
+        </span>
+        <el-input
+          :key="passwordType"
+          ref="password"
+          v-model="registerForm.password"
+          :type="passwordType"
+          placeholder="密码"
+          name="password"
+          tabindex="2"
+          auto-complete="on"
+        />
+        <span class="show-pwd" @click="showPwd">
+          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+        </span>
       </el-form-item>
 
       <el-form-item prop="code">
@@ -66,6 +85,13 @@ export default {
         callback()
       }
     }
+    const validatePassword = (rule, value, callback) => {
+      if (value.length < 6) {
+        callback(new Error('密码不能少于六位字符'))
+      } else {
+        callback()
+      }
+    }
     const validateCode = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('验证码不能为空'))
@@ -76,16 +102,19 @@ export default {
     return {
       registerForm: {
         account: '',
+        password: '',
         code: ''
       },
       registerRules: {
         account: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }],
         code: [{ required: true, trigger: 'blur', validator: validateCode }]
       },
       register: false,
       loading: false,
       sendCoded: false,
-      redirect: undefined
+      redirect: undefined,
+      passwordType: 'password'
     }
   },
   watch: {
@@ -111,11 +140,21 @@ export default {
       })
     },
     getCode() {
-      sendCode({ account: this.registerForm.account, scene: 'register' }).then(response => {
+      sendCode({ account: this.registerForm.account, sceneCode: 'register_by_code' }).then(response => {
         this.$message({ message: '验证码发送成功', type: 'success' })
         this.sendCoded = true
       })
-    }
+    },
+    showPwd() {
+      if (this.passwordType === 'password') {
+        this.passwordType = ''
+      } else {
+        this.passwordType = 'password'
+      }
+      this.$nextTick(() => {
+        this.$refs.password.focus()
+      })
+    },
   }
 }
 </script>

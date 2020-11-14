@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import qs from 'qs'
 
 /**
  * 发送验证码
@@ -6,8 +7,8 @@ import request from '@/utils/request'
  */
 export function sendCode(data) {
   return request({
-    url: '/cultures/message/sendCode',
+    url: '/api/message/sendCode',
     method: 'post',
-    data
+    data: qs.stringify(data)
   })
 }
