@@ -4,6 +4,20 @@
       <el-form-item label="标题">
         <el-input v-model="form.title" />
       </el-form-item>
+      <el-form-item label="类型">
+        <el-select v-model="form.category" placeholder="类型">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="来源">
+        <el-input v-model="form.source" placeholder="例如：网络/作者名称/原创" />
+      </el-form-item>
       <el-form-item label="描述">
         <el-input v-model="form.description" />
       </el-form-item>
@@ -38,11 +52,43 @@ export default {
         title: "",
         description: "",
         content: "",
+        source: "",
         sort: 0,
         recommend: 0,
+        category: 0,
         status: 0,
       },
       dialogVisible: false,
+      options: [
+        {
+          value: 1,
+          label: "恐怖氛围",
+        },
+        {
+          value: 2,
+          label: "诡秘脑洞",
+        },
+        {
+          value: 3,
+          label: "断案推理",
+        },
+        {
+          value: 4,
+          label: "剧情故事",
+        },
+        {
+          value: 5,
+          label: "趣味猜谜",
+        },
+        {
+          value: 6,
+          label: "仙境迷踪",
+        },
+        {
+          value: 7,
+          label: "新闻实事",
+        },
+      ],
     };
   },
   mounted() {
